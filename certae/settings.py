@@ -95,13 +95,11 @@ else:
     EXT_PATH = 'd:/data/ExtJs'
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, '/templates'),
-    BASE_DIR + '/templates',
+    os.path.join(BASE_DIR, 'templates'),
 )
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, '/static'),
-    BASE_DIR + '/static',
+    os.path.join(BASE_DIR, 'static'),
     '/Users/victorette/Library/Python/2.7/lib/python/site-packages/protoLib/static',
     EXT_PATH,
 )
