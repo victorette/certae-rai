@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+import site
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -89,9 +91,10 @@ FILE_UPLOAD_PERMISSIONS = 0644
 
 STATIC_URL = '/static/'
 
-# Besoin de pointer vers le dossier source de ExtJS.
+# Pointe vers le dossier source de ExtJS (contenu dans un dossier extjs)
+EXTJS_VERSION = '4.2.1.883'
 if BASE_DIR.startswith('/'):
-    EXT_PATH = '/opt/lib/ext-4.2.1.883'
+    EXT_PATH = '/opt/lib/ext-%(extjsversion)s' % {"extjsversion" : EXTJS_VERSION}
 else:
     EXT_PATH = 'd:/data/ExtJs'
 
@@ -99,10 +102,9 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
-# Doit contenir le path vers la lib installe de protoLib.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-    '/home/tresi02/.local/lib/python2.7/site-packages/protoLib/static',
+    os.path.join(site.USER_SITE, 'protoLib/static'),
     EXT_PATH,
 )
 
