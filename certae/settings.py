@@ -89,8 +89,9 @@ FILE_UPLOAD_PERMISSIONS = 0644
 
 STATIC_URL = '/static/'
 
+# Besoin de pointer vers le dossier source de ExtJS.
 if BASE_DIR.startswith('/'):
-    EXT_PATH = '/opt/data/ExtJs'
+    EXT_PATH = '/opt/lib/ext-4.2.1.883'
 else:
     EXT_PATH = 'd:/data/ExtJs'
 
@@ -98,10 +99,12 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
+# Doit contenir le path vers la lib installe de protoLib.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-    '/Users/victorette/Library/Python/2.7/lib/python/site-packages/protoLib/static',
+    '/home/tresi02/.local/lib/python2.7/site-packages/protoLib/static',
     EXT_PATH,
 )
 
+SITE_ID = 1
 
