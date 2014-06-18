@@ -8,9 +8,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import site
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+EXTJS_VERSION = '4.2.1.883'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -90,7 +94,7 @@ FILE_UPLOAD_PERMISSIONS = 0644
 STATIC_URL = '/static/'
 
 if BASE_DIR.startswith('/'):
-    EXT_PATH = '/opt/data/ExtJs'
+    EXT_PATH = '/opt/lib/ext-%(extjsversion)s' % {"extjsversion" : EXTJS_VERSION}
 else:
     EXT_PATH = 'd:/data/ExtJs'
 
@@ -100,8 +104,9 @@ TEMPLATE_DIRS = (
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-    '/Users/victorette/Library/Python/2.7/lib/python/site-packages/protoLib/static',
+    os.path.join(site.USER_SITE, 'protoLib/static'),
     EXT_PATH,
 )
 
+SITE_ID = 1
 
