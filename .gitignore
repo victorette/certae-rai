@@ -2,13 +2,5 @@
 *.pyc
 *.pyo
 *.bak
-.project
-.pydevproject
+
 .settings
-db.sqlite3
-*.class
-*.pyc
-*.pyo
-*.class
-*.pyc
-*.pyo
