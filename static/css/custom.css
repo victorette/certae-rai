@@ -1,0 +1,42 @@
+.top-piv {
+    width: 100%;
+    position: relative;
+    margin-left: auto ;
+    margin-right: auto ;
+}
+
+.piv {
+    width:760px;
+    height:89px;
+    background-size:320px 57px;
+    background-repeat:no-repeat;
+    background-position:right top; 
+}
+.piv .logo {
+    height:89px;
+    width:210px;
+    float:left;
+    background-image:url(../img/logo.png);
+    background-repeat:no-repeat;
+    background-position:center;
+}
+.piv .content {
+    height:89px;
+    width:550px;
+    float:left;
+}
+.piv .content .space {
+    height:25px;
+    width:300px;
+}
+.piv .content .title {
+    height:20px;
+    width:300px;
+    font-family: Arial, sans-serif;
+    color: #000000;
+    font-size: 18px;
+    font-weight: 200;
+}
+.piv .content .subtitle {
+    height:20px;
+}

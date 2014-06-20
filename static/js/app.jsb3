@@ -1,0 +1,76 @@
+{
+    "projectName": "RAI",
+    "licenseText": "Copyright(c) 2012 CeRTAE",
+    "builds": [
+        {
+            "name": "All Classes",
+            "target": "all-classes.js",
+            "options": {
+                "debug": true
+            },
+            "files": [
+                {
+                    "clsName": "RAI.model.Raccordement",
+                    "name": "Raccordement.js",
+                    "path": "rai/model/"
+                },
+                {
+                    "clsName": "RAI.model.ElementDonnee",
+                    "name": "ElementDonnee.js",
+                    "path": "rai/model/"
+                },
+                {
+                    "clsName": "RAI.store.Raccordements",
+                    "name": "Raccordements.js",
+                    "path": "rai/store/"
+                },
+                {
+                    "clsName": "RAI.store.ElementsDonneeLeftGrid",
+                    "name": "ElementsDonneeLeftGrid.js",
+                    "path": "rai/store/"
+                },
+                {
+                    "clsName": "RAI.store.ElementsDonneeRightGrid",
+                    "name": "ElementsDonneeRightGrid.js",
+                    "path": "rai/store/"
+                },
+                {
+                    "clsName": "RAI.view.raccordement.GridPanel",
+                    "name": "GridPanel.js",
+                    "path": "rai/view/raccordement/"
+                },
+                {
+                    "clsName": "RAI.view.raccordement.ListRaccordement",
+                    "name": "ListRaccordement.js",
+                    "path": "rai/view/raccordement/"
+                },
+                {
+                    "clsName": "RAI.view.raccordement.MainWindow",
+                    "name": "MainWindow.js",
+                    "path": "rai/view/raccordement/"
+                },
+                {
+                    "clsName": "RAI.controller.RaccordementController",
+                    "name": "RaccordementController.js",
+                    "path": "rai/controller/"
+                }
+            ]
+        },
+        {
+            "name": "Application - Production",
+            "target": "rai/app-all.js",
+            "compress": true,
+            "files": [
+                {
+                    "path": "",
+                    "name": "all-classes.js"
+                },
+                {
+                    "path": "rai/",
+                    "name": "app.js"
+                }
+            ]
+        }
+    ],
+    "resources": []
+}
