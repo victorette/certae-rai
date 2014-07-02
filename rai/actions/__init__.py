@@ -86,7 +86,7 @@ def doRaiActions( modeladmin, request, queryset, parameters, action ):
 
 
 
-def doMatrixRacc( modeladmin,request, queryset, detKeys, parameters):
+def doMatrixRacc( modelAdmin,request, queryset, detKeys, parameters):
 
     from rai.actions.racMatrix import doMatrixRaccordement 
 

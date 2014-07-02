@@ -4,6 +4,7 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/custom.css">
 {% endblock %}
 
+
 {% block extjsloader %}
 <script type="text/javascript">
 // Place to use Ext.Loader methods
@@ -11,5 +12,6 @@
 {% endblock %}
 
 {% block javascript %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/config/configProperties.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/rai/app-all.js"></script>
 {% endblock %}

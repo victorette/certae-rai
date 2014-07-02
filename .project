@@ -3,7 +3,7 @@
 	<name>certae-rai</name>
 	<comment></comment>
 	<projects>
-		<project>ProtoExt</project>
+		<project>protoExt</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
