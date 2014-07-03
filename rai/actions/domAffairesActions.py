@@ -40,7 +40,6 @@ def doRaiActions( modeladmin, request, queryset, parameters, action ):
 
             import os
             fileName = actionFiles[ 'file']
-
             cOMS.loadFile( fileName  )
 
         except Exception as e:

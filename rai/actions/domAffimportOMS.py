@@ -112,6 +112,9 @@ class importOMS_RAI():
         if (dictWrite['state'] != self.OK):
             return dictWrite
 
+        # Delete working file 
+        import os
+        os.remove( self.__filename )
 
         return {'state':self.OK, 'message': 'Ecriture effectuee base donnee'}
 
