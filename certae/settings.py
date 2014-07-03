@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 import site
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+# Build paths inside the project like this: os.path.join(PPATH, ...)
+PPATH = os.path.dirname(os.path.dirname(__file__))
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db/testproto.db'),
+        'NAME': os.path.join(PPATH, 'db/testproto.db'),
     }
 }
 
@@ -88,7 +88,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(PPATH, 'media/')
 FILE_UPLOAD_PERMISSIONS = 0644
 
 # Static files (CSS, JavaScript, Images)
@@ -96,17 +96,17 @@ FILE_UPLOAD_PERMISSIONS = 0644
 
 STATIC_URL = '/static/'
 
-if BASE_DIR.startswith('/'):
+if PPATH.startswith('/'):
     EXT_PATH = '/opt/lib/ext-%(extjsversion)s' % {"extjsversion" : EXTJS_VERSION}
 else:
     EXT_PATH = 'd:/data/ExtJs'
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
+    os.path.join(PPATH, 'templates'),
 )
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(PPATH, 'static'),
     os.path.join(site.USER_SITE, 'protoLib/static'),
     EXT_PATH,
 )

@@ -3,8 +3,6 @@
 import traceback
 
 from protoLib.utilsBase import slugify
-from protoLib.utils.downloadFile import getFullPath
-
 
 
 def doFindReplace(modeladmin, request, queryset, parameters):
