@@ -370,4 +370,3 @@ class importOMS_RAI():
 
         # Logging info
         self.__logger.info("Rac mathc effectuee...")
-
