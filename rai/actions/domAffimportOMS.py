@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-# Version 1403 Dgt  
+# Version 1403 Dgt
 from xml.etree.ElementTree import ElementTree
 
 
 # Import Database class
 from rai.models import  Modele, Entite, ElementDonnee, Relation, ModeleRaccordement, Raccordement
-from protoLib.protoActionEdit import setSecurityInfo 
+from protoLib.protoActionEdit import setSecurityInfo
 
 from protoLib.utils.logger import protoLog
 
@@ -16,14 +16,14 @@ class importOMS_RAI():
 
         self.domaff_modele = dProject
         self.__filename = ""
-        self.__tree = None
+        self.fileTree = None
 
         self.userProfile = userProfile
 
         # Manejo del log
         self.__logger = protoLog(userProfile.user, userProfile.userTeam , 'RAI')
 
-        
+
         # Errors Constants
         self.OK = 0
         self.ERROR_OPEN_FILE = 1
@@ -31,28 +31,28 @@ class importOMS_RAI():
         self.OPERATIONAL_ERROR = 3
         self.ADDING_ERROR = 4
         self.ERROR = 5
-        
 
 
-        # tuples equivalence ( Champs modèle de données RIA, Champs d'OMS ) 
-        self.MODELE = { 
+
+        # tuples equivalence ( Champs modèle de données RIA, Champs d'OMS )
+        self.MODELE = {
             'code' : 'nom_modele',
             'idModel' : 'idModel',
             'idRef' : 'idRef',
         }
 
-        self.ENTITE = { 
+        self.ENTITE = {
             'code'          : 'nom_entite',
             'description'   : 'description_entite',
             'physicalName'  : 'physical_name'
-        }  
+        }
 
-        self.ELEMENT_DONNEE = { 
-          # 'entite'            : 'entite_elem', 
+        self.ELEMENT_DONNEE = {
+          # 'entite'            : 'entite_elem',
             'code'  : 'nom_element_donnee',
             'alias' : 'numero_elem_cn',
             'description'      : 'description',
-        }  
+        }
 
         self.ELEMENT_DONNEE_PP = {
             'FORMAT'              : 'type_de_base',
@@ -69,11 +69,11 @@ class importOMS_RAI():
             'VALIDATIONSINTERELEMENT': 'validations_inter_elements',
             'VALIDATIONINTERENREGISTREMENT' : 'validations_inter_enregistrement',
             'REQUISPAR'         : 'requis_par'
-        } 
+        }
 
         self.RELATION = {
-          # 'entite'            : 'entite_rela1', 
-          # 'ref'               : 'entite_rela2', 
+          # 'entite'            : 'entite_rela1',
+          # 'ref'               : 'entite_rela2',
             'code'              : 'nom_relation',
 
             'baseConcept'       : 'tmp_foreign',
@@ -84,84 +84,83 @@ class importOMS_RAI():
             'baseMax'           : 'baseMax',
             'refMin'            : 'refMin',
             'refMax'            : 'refMax',
-        } 
+        }
 
 
         self.MODELE_RACCORDEMENT = {
             'code'          : 'nom_modele_raccordement',
             'source'        : 'tmp_modrac1',
             'destination'   : 'tmp_modrac2',
-        } 
+        }
 
         self.RACCORDEMENT = {
-            # modrac_rac    
+            # modrac_rac
             'code'              : 'no_raccordement',
             'sourceCol'         : 'tmp_rac1',
             'destinationCol'    : 'tmp_rac2',
 
             'alias'             : 'tmp_alias',
             'destinationText'   : 'tmp_destt',
-        } 
+        }
 
 
 
-    def doImport(self): 
+    def doImport(self):
 
-        #     
-        dictWrite = self.__write()
+        #
+        dictWrite = self.writeDb()
         if (dictWrite['state'] != self.OK):
             return dictWrite
 
-       
+
         return {'state':self.OK, 'message': 'Ecriture effectuee base donnee'}
 
 
     # filename doit etre un fichier XML
     def loadFile(self, filename):
         # In oder to conserve the file
-        self.__tree = ElementTree()
-        
+        self.fileTree = ElementTree()
+
         # Logging info
         self.__logger.info("Chargement du fichier...")
-        
-        # self.__tree.parse(filename)
+
+        # self.fileTree.parse(filename)
         try:
-            self.__tree.parse(filename)
+            self.fileTree.parse(filename)
             self.__filename = filename
-            
+
         except IOError:
             self.__logger.error("Impossible d ouvrir le fichier...")
             return self.ERROR_OPEN_FILE
         except:
             self.__logger.error("Erreur de traitement fichier...")
             return self.ERROR
-        
+
         # Logging info
         self.__logger.info("Chargement du fichier effectue...")
-        
+
         return self.OK
-    
-        
-    def __write(self):
+
+
+    def writeDb(self):
 
         # Logging info
         self.__logger.info("Ecriture dans la base de donnee...")
 
-        
 
-        # need for setSecurityInfo 
+        # need for setSecurityInfo
         data = {}
 
         # We populate the database
-        if (self.__tree != None):  # A file has been loaded
-        
-            xProjects = self.__tree.getiterator("domain")
-            
+        if (self.fileTree != None):  # A file has been loaded
+
+            xProjects = self.fileTree.getiterator("domain")
+
             # ------------------------------------------------------------------------------
             xModels = xProjects[0].getiterator("model")
             for xModel in xModels:
                 dModel = Modele()
-                dModel.domaff_modele = self.domaff_modele 
+                dModel.domaff_modele = self.domaff_modele
 
                 for child in xModel:
                     if child.tag in self.MODELE:
@@ -170,9 +169,9 @@ class importOMS_RAI():
                 try:
                     setSecurityInfo(dModel, data, self.userProfile, True)
                     dModel.save()
-                except Exception, e: 
+                except Exception, e:
                     self.__logger.info("Error dModel.save " + str(e))
-                    
+
                 self.__logger.info("Model..." + dModel.__str__())
 
                 # ------------------------------------------------------------------------------
@@ -180,19 +179,19 @@ class importOMS_RAI():
                 for xEntity in xEntitys:
                     dEntity = Entite()
                     dEntity.entite_mod = dModel
-                    
+
                     for child in xEntity:
                         if (child.tag in self.ENTITE):
                             if child.text is not None:
                                 setattr(dEntity, self.ENTITE[ child.tag ] , child.text)
 
-                            elif type( child.attrib ) == dict and 'text' in child.attrib : 
-                                setattr(dEntity, self.ENTITE[ child.tag ] , child.get( 'text' )) 
-                        
-                    try:              
+                            elif type( child.attrib ) == dict and 'text' in child.attrib :
+                                setattr(dEntity, self.ENTITE[ child.tag ] , child.get( 'text' ))
+
+                    try:
                         setSecurityInfo(dEntity, data, self.userProfile, True)
                         dEntity.save()
-                    except Exception, e: 
+                    except Exception, e:
                         self.__logger.info("Error dEntity.save" + str(e))
 
                     self.__logger.info("Entity..." + dEntity.__str__())
@@ -200,7 +199,7 @@ class importOMS_RAI():
                     # ------------------------------------------------------------------------------
                     xProperties = xEntity.getiterator("property")
                     for xProperty in xProperties:
-                        
+
                         dProperty = ElementDonnee()
                         dProperty.entite_elem = dEntity
 
@@ -209,9 +208,9 @@ class importOMS_RAI():
                                 if (child.text is not None):
                                     setattr(dProperty, self.ELEMENT_DONNEE[ child.tag ], child.text)
 
-                                elif type( child.attrib ) == dict and 'text' in child.attrib : 
-                                    setattr(dProperty, self.ELEMENT_DONNEE[ child.tag ], child.get( 'text' )) 
-                                
+                                elif type( child.attrib ) == dict and 'text' in child.attrib :
+                                    setattr(dProperty, self.ELEMENT_DONNEE[ child.tag ], child.get( 'text' ))
+
 
                             elif child.tag == 'udps':
                                 for xUdp in child:
@@ -219,10 +218,10 @@ class importOMS_RAI():
                                         setattr(dProperty, self.ELEMENT_DONNEE_PP[ xUdp.tag ] , xUdp.get('text'))
 
 
-                        try: 
+                        try:
                             setSecurityInfo(dProperty, data, self.userProfile, True)
                             dProperty.save()
-                        except Exception, e:  
+                        except Exception, e:
                             self.__logger.info("Error prpDom.save" + str(e))
 
 
@@ -231,7 +230,7 @@ class importOMS_RAI():
                     for xForeign in xForeigns:
                         dForeign = Relation()
 
-                        dForeign.entite_rela1 = dEntity 
+                        dForeign.entite_rela1 = dEntity
                         dForeign.entite_rela2 = dEntity
 
                         for child in xForeign:
@@ -241,16 +240,16 @@ class importOMS_RAI():
                         try:
                             setSecurityInfo(dForeign, data, self.userProfile, True)
                             dForeign.save()
-                        except Exception, e: 
+                        except Exception, e:
                             self.__logger.info("Error dForeign.save" + str(e))
 
 
-# RAC 
+# RAC
             # ------------------------------------------------------------------------------
             xLinkModels = xProjects[0].getiterator("linkModel")
             for xLinkModel in xLinkModels:
                 dLinkModel = ModeleRaccordement()
-                dLinkModel.tmp_domaff = self.domaff_modele 
+                dLinkModel.tmp_domaff = self.domaff_modele
 
                 for child in xLinkModel:
                     if child.tag in self.MODELE_RACCORDEMENT:
@@ -259,9 +258,9 @@ class importOMS_RAI():
                 try:
                     setSecurityInfo(dLinkModel, data, self.userProfile, True)
                     dLinkModel.save()
-                except Exception, e: 
+                except Exception, e:
                     self.__logger.info("Error dLinkModel.save" + dLinkModel.__str__() + str(e))
-                    
+
                 self.__logger.info("LinkModel..." + dLinkModel.__str__())
 
                 # ------------------------------------------------------------------------------
@@ -269,17 +268,17 @@ class importOMS_RAI():
                 for xLink in xLinks:
                     dLink = Raccordement()
                     dLink.modrac_rac = dLinkModel
-                    
+
                     for child in xLink:
                         if (child.tag in self.RACCORDEMENT) and (child.text is not None):
                             setattr(dLink, self.RACCORDEMENT[ child.tag ] , child.text)
-                    try:              
+                    try:
                         setSecurityInfo(dLink, data, self.userProfile, True)
                         dLink.save()
-                    except  Exception, e:  
+                    except  Exception, e:
                         self.__logger.info("Error dLink.save" + str(e))
 
-        
+
         # Logging info
         self.__logger.info("Ecriture dans la base de donnee effectuee...")
         return {'state':self.OK, 'message': 'Ecriture effectuee'}
@@ -288,39 +287,39 @@ class importOMS_RAI():
     def doFkMatch(self):
 
         # from prototype.models import Project
-        # self.dProject = Project.objects.get( code = "test1120")      
-                
-        # Recorre las llaves para asociar los FK 
+        # self.dProject = Project.objects.get( code = "test1120")
+
+        # Recorre las llaves para asociar los FK
         for dForeign in Relation.objects.filter(
-            entite_rela1__entite_mod__domaff_modele=self.domaff_modele 
+            entite_rela1__entite_mod__domaff_modele=self.domaff_modele
             ):
-            
-            try: 
+
+            try:
                 dReference = Entite.objects.get(entite_mod=dForeign.entite_rela1.entite_mod ,
                                                 nom_entite=dForeign.tmp_foreign)
-            except: 
+            except:
                 continue
-            
+
             dForeign.entite_rela2 = dReference
 
-            try: 
+            try:
                 dForeign.save()
-            except Exception, e: 
+            except Exception, e:
                 self.__logger.info("Error dForeign.save" + str(e))
-                continue 
-                
+                continue
+
         # Logging info
         self.__logger.info("Fk mathc effectuee...")
-        
+
 
     def doRacMatch(self):
-        
-        # Recorre las llaves para asociar los FK  ---------------------------------- 
+
+        # Recorre las llaves para asociar los FK  ----------------------------------
         for dModRec in ModeleRaccordement.objects.filter(
-            tmp_domaff=self.domaff_modele 
+            tmp_domaff=self.domaff_modele
             ):
-            
-            try: 
+
+            try:
                 dReference1 = Modele.objects.get(
                     domaff_modele=self.domaff_modele,
                     nom_modele=dModRec.tmp_modrac1)
@@ -328,25 +327,25 @@ class importOMS_RAI():
                 dReference2 = Modele.objects.get(
                     domaff_modele=self.domaff_modele,
                     nom_modele=dModRec.tmp_modrac2)
-            except: 
+            except:
                 continue
-            
-            
+
+
             dModRec.mod_modrac1 = dReference1
             dModRec.mod_modrac2 = dReference2
 
-            try: 
+            try:
                 dModRec.save()
-            except Exception, e: 
+            except Exception, e:
                 self.__logger.info("Error dModRec.save" + str(e))
-                continue 
-            
-            
+                continue
+
+
             for dRac in Raccordement.objects.filter(
                 modrac_rac=dModRec
                 ):
-            
-                try: 
+
+                try:
                     dReference1 = ElementDonnee.objects.filter(
                         entite_elem__entite_mod=dModRec.mod_modrac1,
                         nom_element_donnee=dRac.tmp_rac1)[0]
@@ -354,21 +353,21 @@ class importOMS_RAI():
                     dReference2 = ElementDonnee.objects.filter(
                         entite_elem__entite_mod=dModRec.mod_modrac2,
                         nom_element_donnee=dRac.tmp_rac2)[0]
-    
-                except: 
+
+                except:
                     continue
-                
-                
+
+
                 dRac.eledon_rac1 = dReference1
                 dRac.eledon_rac2 = dReference2
-                    
-                try: 
+
+                try:
                     dRac.save()
-                except Exception, e: 
+                except Exception, e:
                     self.__logger.info("Error dRac.save" + str(e))
-                    continue 
-            
-                
+                    continue
+
+
         # Logging info
         self.__logger.info("Rac mathc effectuee...")
-        
+

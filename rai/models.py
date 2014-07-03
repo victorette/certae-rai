@@ -24,8 +24,7 @@ class DomaineAffaires(ProtoModel):
         "actions": [
             { "name": "doImportRAI", "selectionMode" : "single",
                "actionParams": [
-                    {"name" : "file1", "type" : "filefield", "required": True, "tooltip" : "Select a file to upload" },
-                    {"name" : "file2", "type" : "filefield", "required": True, "tooltip" : "Select a file to upload" },
+                    {"name" : "file", "type" : "filefield", "required": True, "tooltip" : "Select a file to upload" },
                 ] 
             },
             { "name": "doMatchRAI", "selectionMode" : "single", }, 
