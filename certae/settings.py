@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+#@PydevCodeAnalysisIgnore
+
 """
 Django settings for certae project.
 
@@ -92,10 +95,9 @@ FILE_UPLOAD_PERMISSIONS = 0644
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
 STATIC_URL = '/static/'
 
-if BASE_DIR.startswith('/'):
+if PPATH.startswith('/'):
     EXT_PATH = '/opt/lib/ext-%(extjsversion)s' % {"extjsversion" : EXTJS_VERSION}
 else:
     EXT_PATH = 'd:/data/ExtJs'
