@@ -4,12 +4,12 @@
 
 _SM._requiredField = '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
 
-_SM._versionProto = 'Version 1.0.2';
+_SM._versionProto = 'Version 1.0.6';
 _SM._siteTitle = '<div class="top-piv">'+
     '<div class="menu-piv">'+
     	'<div class="alignleft">'+
             '<nav class="pivHautMenu">&nbsp;'+
-                '<a onclick="alert("To be implemented..");" class="piv-link">Link</a>'+
+                '<a onclick="alert(\'To be implemented..\');" class="piv-link">Link</a>'+
             '</nav>'+
         '</div>'+
         '<div class="alignright">'+ _SM._versionProto + '</div>' +
@@ -27,6 +27,7 @@ _SM._siteTitle = '<div class="top-piv">'+
 
 _SM.loginTitle = 'RAI - Identification';
 _SM._siteTitleCollapsed = false;
+_SM._MENU_COLLAPSED = false;
 
 _SM.showFooterExtraContent = false;
 _SM.footerExtraContent = '<div class="centre">' +
@@ -42,3 +43,10 @@ _SM.footerExtraContent = '<div class="centre">' +
 '</div>';
 
 _SM._HELPpath = 'static/help/index.html';
+
+// PageSize par default
+_SM._PAGESIZE = 50;
+_SM._ComboPageSize = [['25'], ['50'], ['100'], ['500']];
+
+// Autoload entites
+_SM._AUTOLOAD_PCI = [ 'rai.Modele' ];

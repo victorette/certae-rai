@@ -33,3 +33,13 @@ class AdmModele( admin.ModelAdmin ):
 admin.site.register( Modele, AdmModele )
 
 
+
+# ------------------------------------------------
+
+from rai.models import Entite 
+from rai.actions import  doAddModel
+
+class AdmEntite( admin.ModelAdmin ):
+    actions = [ doAddModel ]
+
+admin.site.register( Entite, AdmEntite )

@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+#@PydevCodeAnalysisIgnore
+
 """
 Django settings for certae project.
 
@@ -11,9 +14,9 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 import site
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-PPATH = BASE_DIR
+# Build paths inside the project like this: os.path.join(PPATH, ...)
+PPATH = os.path.dirname(os.path.dirname(__file__))
+
 
 EXTJS_VERSION = '4.2.1'
 
@@ -70,7 +73,7 @@ WSGI_APPLICATION = 'certae.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(PPATH, 'db.sqlite3'),
     }
 }
 
@@ -87,28 +90,26 @@ USE_L10N = True
 
 USE_TZ = True
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(PPATH, 'media/')
 FILE_UPLOAD_PERMISSIONS = 0644
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
 STATIC_URL = '/static/'
 
-if BASE_DIR.startswith('/'):
+if PPATH.startswith('/'):
     EXT_PATH = '/opt/lib/ext-%(extjsversion)s' % {"extjsversion" : EXTJS_VERSION}
 else:
     EXT_PATH = 'd:/data/ExtJs'
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
+    os.path.join(PPATH, 'templates'),
 )
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(PPATH, 'static'),
     os.path.join(site.USER_SITE, 'protobase/static'),
     EXT_PATH,
 )
 
 SITE_ID = 1
-
