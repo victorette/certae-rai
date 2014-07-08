@@ -4,12 +4,12 @@
 
 _SM._requiredField = '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
 
-_SM._versionProto = 'Version 1.0.2';
+_SM._versionProto = 'Version 1.0.6';
 _SM._siteTitle = '<div class="top-piv">'+
     '<div class="menu-piv">'+
     	'<div class="alignleft">'+
             '<nav class="pivHautMenu">&nbsp;'+
-                '<a onclick="alert("To be implemented..");" class="piv-link">Link</a>'+
+                '<a onclick="alert(\'To be implemented..\');" class="piv-link">Link</a>'+
             '</nav>'+
         '</div>'+
         '<div class="alignright">'+ _SM._versionProto + '</div>' +
