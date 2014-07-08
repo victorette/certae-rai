@@ -27,6 +27,7 @@ _SM._siteTitle = '<div class="top-piv">'+
 
 _SM.loginTitle = 'RAI - Identification';
 _SM._siteTitleCollapsed = false;
+_SM._MENU_COLLAPSED = false;
 
 _SM.showFooterExtraContent = false;
 _SM.footerExtraContent = '<div class="centre">' +
@@ -42,3 +43,10 @@ _SM.footerExtraContent = '<div class="centre">' +
 '</div>';
 
 _SM._HELPpath = 'static/help/index.html';
+
+// PageSize par default
+_SM._PAGESIZE = 50;
+_SM._ComboPageSize = [['25'], ['50'], ['100'], ['500']];
+
+// Autoload entites
+_SM._AUTOLOAD_PCI = [ 'rai.Modele' ];

@@ -6,3 +6,6 @@
 .pydevproject
 .settings
 db.sqlite3
+*all-classes.js
+output/**
+data/**

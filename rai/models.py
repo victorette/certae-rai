@@ -97,6 +97,23 @@ class Entite(ProtoModel):
     def __unicode__(self):
         return slugify(self.nom_entite +  '.' + str( self.entite_mod))
 
+    protoExt = {
+        "actions": [
+            { "name": "addModel",
+              "selectionMode" : "multi",
+              "actionParams": [
+                 {"name" : "entite_mod",
+                  "type" : "foreigntext",
+                  "header": "entite mod",
+                  "zoomModel": "rai.Modele",
+                  "fkId": "entite_mod_id",
+                  "required": True,
+                  "tooltip" : "target model"
+                  }
+                ]
+            }
+        ]
+    }
 #     class Meta:
 #         unique_together = ('nom_entite','entite_mod',)
 
@@ -209,7 +226,6 @@ class ModeleRaccordement(ProtoModel):
                      {"name" : "fieldName", "type" : "string", "required": True, "tooltip" : "field name (meta)" }, 
                      {"name" : "oldText", "type" : "string", "required": True, "tooltip" : "Old values: pyreg.sub(); @all for all text" }, 
                      {"name" : "newText", "type" : "string", "required": True, "tooltip" : "New values" }, 
-                     #{"name" : "file", "type" : "filefield", "required": True, "tooltip" : "Select a file to upload" },
                 ] 
             },
             { "name": "doRaccordement", "selectionMode" : "single", "executeJS": True, "jsCode":"Ext.create('RAI.view.raccordement.MainWindow',{selectedModel:selectedKeys}).show();",},
@@ -220,6 +236,8 @@ class ModeleRaccordement(ProtoModel):
 class Raccordement(ProtoModel):
     modrac_rac = models.ForeignKey('ModeleRaccordement', blank= True, null= True, related_name='raccordement_modrac_rac')
     
+    eledon_rac1 = models.ForeignKey('ElementDonnee', blank= True, null= True,  related_name='set_eledon_rac1')
+    eledon_rac2 = models.ForeignKey('ElementDonnee', blank= True, null= True,  related_name='set_eledon_rac2')
     no_raccordement = models.IntegerField(blank= False, null= False)
 
     tmp_rac1 = models.CharField(blank= True, null= True, max_length= 200)
@@ -228,8 +246,6 @@ class Raccordement(ProtoModel):
     tmp_alias    = models.CharField(blank= True, null= True, max_length= 200)
     tmp_destt    = models.CharField(blank= True, null= True, max_length= 200)
 
-    eledon_rac1 = models.ForeignKey('ElementDonnee', blank= True, null= True,  related_name='set_eledon_rac1')
-    eledon_rac2 = models.ForeignKey('ElementDonnee', blank= True, null= True,  related_name='set_eledon_rac2')
 
     _autoIncrementField = 'no_raccordement'
     def __unicode__(self):
