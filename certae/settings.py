@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+#@PydevCodeAnalysisIgnore
+
 """
 Django settings for certae project.
 
@@ -24,7 +27,7 @@ DATABASES = {
     }
 }
 
-EXTJS_VERSION = '4.2.1.883'
+EXTJS_VERSION = '4.2.1'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -78,7 +81,7 @@ WSGI_APPLICATION = 'certae.wsgi.application'
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-ca'
 
 TIME_ZONE = 'UTC'
 
@@ -107,7 +110,7 @@ TEMPLATE_DIRS = (
 
 STATICFILES_DIRS = (
     os.path.join(PPATH, 'static'),
-    os.path.join(site.USER_SITE, 'protoLib/static'),
+    os.path.join(site.USER_SITE, 'protobase/static'),
     EXT_PATH,
 )
 
