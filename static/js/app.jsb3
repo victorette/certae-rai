@@ -62,7 +62,7 @@
             "compress": true,
             "files": [
                 {
-                    "path": "",
+                    "path": "rai/",
                     "name": "all-classes.js"
                 },
                 {

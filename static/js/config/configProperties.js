@@ -4,7 +4,7 @@
 
 _SM._requiredField = '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
 
-_SM._versionProto = 'Version 1.0.2';
+_SM._versionProto = 'Version 1.0.6';
 
 _SM.loginTitle = 'RAI - Identification';
 
