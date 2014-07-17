@@ -43,4 +43,3 @@ class AdmEntite( admin.ModelAdmin ):
     actions = [ doAddModel ]
 
 admin.site.register( Entite, AdmEntite )
-

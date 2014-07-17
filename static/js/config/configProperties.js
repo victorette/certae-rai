@@ -14,7 +14,6 @@ _SM._MENU_COLLAPSED = false;
 
 _SM._HELPpath = 'static/help/index.html';
 
-
 // PageSize par default
 _SM._PAGESIZE = 50;
 _SM._ComboPageSize = [['25'], ['50'], ['100'], ['500']];
